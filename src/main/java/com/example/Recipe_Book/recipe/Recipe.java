@@ -43,6 +43,11 @@ public class Recipe {
         this.name = name;
         this.steps = steps;
     }
+    public Recipe(String name, String steps, String ingredients) {
+        this.name = name;
+        this.steps = steps;
+        this.ingredients = ingredientFormat(ingredients);
+    }
 
     public long getId() {
         return id;
@@ -73,9 +78,12 @@ public class Recipe {
     }
 
     public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+        this.ingredients = ingredientFormat(ingredients);
     }
     private static String ingredientFormat(String str){
+        if (str==null){
+            return "";
+        }
         String[] listOfStrings=str.split(",");
         str="";
         for (int i = 0; i<listOfStrings.length;i++){
@@ -85,7 +93,7 @@ public class Recipe {
             if(listOfStrings[i].startsWith("-")){
                 listOfStrings[i]= listOfStrings[i].substring(1);
             }
-            if(listOfStrings[i].startsWith("\n")){
+            if(listOfStrings[i].endsWith("\n")){
                 listOfStrings[i] = listOfStrings[i].substring(0,listOfStrings[i].length()-1);
             }
             str+=("-"+listOfStrings[i]+"\n");

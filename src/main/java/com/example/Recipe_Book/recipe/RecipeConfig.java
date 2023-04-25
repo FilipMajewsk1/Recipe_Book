@@ -14,7 +14,8 @@ public class RecipeConfig {
         return args -> {
             Recipe noods = new Recipe(
                     "Peanut noodles",
-                    "mix all ingredients"
+                    "mix all ingredients",
+                    "peanut-butter sauce, sweet soy sauce, wheat noodles"
             );
             Recipe bread = new Recipe(
                     "bread",
