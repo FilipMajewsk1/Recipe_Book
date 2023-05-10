@@ -16,19 +16,19 @@ public class Recipe {
             strategy = GenerationType.SEQUENCE,
             generator = "recipe_sequence"
     )
-    private long id;
+    private Long id;
     private String name;
-    private String steps;
     private String ingredients;
+    private String steps;
 
-    public Recipe(long id, String name, String steps, String ingredients) {
+    public Recipe(Long id, String name, String steps, String ingredients) {
         this.id = id;
         this.name = name;
         this.steps = steps;
-        this.ingredients = ingredientFormat(ingredients);
+        this.ingredients = ingredients;
     }
 
-    public Recipe(long id, String name, String steps) {
+    public Recipe(Long id, String name, String steps) {
         this.id = id;
         this.name = name;
         this.steps = steps;
@@ -45,14 +45,14 @@ public class Recipe {
     public Recipe(String name, String steps, String ingredients) {
         this.name = name;
         this.steps = steps;
-        this.ingredients = ingredientFormat(ingredients);
+        this.ingredients = ingredients;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,30 +73,10 @@ public class Recipe {
     }
 
     public String getIngredients() {
-        return ingredientFormat(ingredients);
+        return ingredients;
     }
 
     public void setIngredients(String ingredients) {
-        this.ingredients = ingredientFormat(ingredients);
-    }
-    private static String ingredientFormat(String str){
-        if (str==null){
-            return "";
-        }
-        String[] listOfStrings=str.split(",");
-        str="";
-        for (int i = 0; i<listOfStrings.length;i++){
-            if(listOfStrings[i].startsWith(" ")){
-                listOfStrings[i]= listOfStrings[i].substring(1);
-            }
-            if(listOfStrings[i].startsWith("-")){
-                listOfStrings[i]= listOfStrings[i].substring(1);
-            }
-            if(listOfStrings[i].endsWith("\n")){
-                listOfStrings[i] = listOfStrings[i].substring(0,listOfStrings[i].length()-1);
-            }
-            str+=("-"+listOfStrings[i]+"\n");
-        }
-        return str;
+        this.ingredients = ingredients;
     }
 }

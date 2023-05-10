@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Tag(name = "Recipe_book", description = "Recipe_book management APIs")
 @RestController
-@RequestMapping(path="api/v1")
+@RequestMapping(path="api/v1/recipe")
 
 
 
@@ -29,7 +29,7 @@ public class RecipeController {
     @Operation(
             summary = "Retrieve all Recipes",
             description = "Get a list of all Recipe objects. The response is a list of Recipe objects with id, name, ingredients and steps.",
-            tags = { "recipes", "get" })
+            tags = { "get" })
     @GetMapping
     public List<Recipe> getRecipes(){
         return(recipeService.getRecipes());
@@ -38,7 +38,7 @@ public class RecipeController {
     @Operation(
             summary = "Retrieve a Recipe by Name",
             description = "Get a Recipe object by specifying its name. The response is Recipe object with id, name, ingredients and steps.",
-            tags = { "recipes", "get" })
+            tags = { "get" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
@@ -46,6 +46,10 @@ public class RecipeController {
     @GetMapping(path = "{recipeName}")
     public Optional<Recipe> getRecipe(@PathVariable("recipeName") String recipeName){return (recipeService.getRecipe(recipeName));}
 
+    @Operation(
+            summary = "Add a new Recipe",
+            description = "Add a new Recipe object by specifying its name, ingredients and steps.",
+            tags = { "post" })
     @PostMapping(value = "/{recipeName}/{recipeIngredients}/{recipeSteps}")
     public void registerNewRecipe(@PathVariable("recipeName") String recipeName,
                                   @PathVariable("recipeIngredients") String recipeIngredients,
@@ -53,10 +57,19 @@ public class RecipeController {
         recipeService.addNewRecipe(new Recipe(recipeName,recipeIngredients,recipeSteps));
     }
 
-    @DeleteMapping(path = "{recipeId}")
-    public void deleteRecipe(@PathVariable("recipeId") Long recipeId){
-        recipeService.deleteRecipe(recipeId);
+    @Operation(
+            summary = "Delete a Recipe",
+            description = "Delete a Recipe object by specifying its name",
+            tags = { "delete" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+    @DeleteMapping(path = "{recipeName}")
+    public void deleteRecipe(@PathVariable("recipeName") String recipeName){
+        recipeService.deleteRecipe(recipeService.getRecipe(recipeName).get().getId());
     }
+
 
     @PutMapping(path = "{recipeId}")
     public void updateRecipe(

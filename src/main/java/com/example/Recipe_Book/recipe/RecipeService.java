@@ -31,11 +31,8 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+
     public void deleteRecipe(Long recipeId) {
-        boolean exists = recipeRepository.existsById(recipeId);
-        if(!exists){
-            throw new IllegalStateException("Recipe ID " + recipeId +" does not exist");
-        }
         recipeRepository.deleteById(recipeId);
     }
 
