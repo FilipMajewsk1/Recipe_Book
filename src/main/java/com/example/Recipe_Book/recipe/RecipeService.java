@@ -21,6 +21,8 @@ public class RecipeService {
         return(recipeRepository.findAll());
     }
 
+    public Optional<Recipe> getRecipe(String name){ return(recipeRepository.findRecipeByName(name));}
+
     public void addNewRecipe(Recipe recipe) {
         Optional<Recipe> recipeByName=recipeRepository.findRecipeByName(recipe.getName());
         if (recipeByName.isPresent()) {

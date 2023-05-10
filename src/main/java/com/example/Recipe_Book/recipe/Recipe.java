@@ -6,7 +6,6 @@ import java.util.List;
 @Entity
 @Table
 public class Recipe {
-    //private enum difficulty{beginner,amateur,chef};
     @Id
     @SequenceGenerator(
             name = "recipe_sequence",
