@@ -2,7 +2,6 @@ package com.example.Recipe_Book.recipe;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 @Entity
 @Table
 public class Recipe {

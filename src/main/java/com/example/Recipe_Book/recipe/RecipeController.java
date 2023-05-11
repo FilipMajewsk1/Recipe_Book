@@ -31,7 +31,7 @@ public class RecipeController {
             description = "Get a list of all Recipe objects. The response is a list of Recipe objects with id, name, ingredients and steps.",
             tags = { "get" })
     @GetMapping
-    public List<Recipe> getRecipes(){
+    public Iterable<Recipe> getRecipes(){
         return(recipeService.getRecipes());
     }
 
@@ -50,11 +50,13 @@ public class RecipeController {
             summary = "Add a new Recipe",
             description = "Add a new Recipe object by specifying its name, ingredients and steps.",
             tags = { "post" })
-    @PostMapping(value = "/{recipeName}/{recipeIngredients}/{recipeSteps}")
-    public void registerNewRecipe(@PathVariable("recipeName") String recipeName,
-                                  @PathVariable("recipeIngredients") String recipeIngredients,
-                                  @PathVariable("recipeSteps") String recipeSteps){
-        recipeService.addNewRecipe(new Recipe(recipeName,recipeIngredients,recipeSteps));
+    //@PostMapping(value = "/{recipeName}/{recipeIngredients}/{recipeSteps}")
+    @PostMapping(value = "")
+    public void registerNewRecipe(//@PathVariable("recipeName") String recipeName,
+                                  //@PathVariable("recipeIngredients") String recipeIngredients,
+                                  //@PathVariable("recipeSteps") String recipeSteps)
+    @RequestBody Recipe recipe){
+        recipeService.addNewRecipe(new Recipe(recipe.getName(), recipe.getIngredients(), recipe.getSteps()));
     }
 
     @Operation(

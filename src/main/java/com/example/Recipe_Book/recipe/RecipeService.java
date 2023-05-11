@@ -17,7 +17,7 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public List<Recipe> getRecipes(){
+    public Iterable<Recipe> getRecipes(){
         return(recipeRepository.findAll());
     }
 
