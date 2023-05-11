@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
+
 import java.util.Optional;
 
 @Tag(name = "Recipe_book", description = "Recipe_book management APIs")
@@ -36,40 +36,36 @@ public class RecipeController {
     }
 
     @Operation(
-            summary = "Retrieve a Recipe by Name",
-            description = "Get a Recipe object by specifying its name. The response is Recipe object with id, name, ingredients and steps.",
+            summary = "Retrieve a Recipe by id",
+            description = "Get a Recipe object by specifying its id The response is Recipe object with id, name, ingredients and steps.",
             tags = { "get" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @GetMapping(path = "{recipeName}")
-    public Optional<Recipe> getRecipe(@PathVariable("recipeName") String recipeName){return (recipeService.getRecipe(recipeName));}
+    @GetMapping(path = "{recipeId}")
+    public Optional<Recipe> getRecipe(@PathVariable("recipeId") Long recipeId){return (recipeService.getRecipe(recipeId));}
 
     @Operation(
             summary = "Add a new Recipe",
             description = "Add a new Recipe object by specifying its name, ingredients and steps.",
             tags = { "post" })
-    //@PostMapping(value = "/{recipeName}/{recipeIngredients}/{recipeSteps}")
     @PostMapping(value = "")
-    public void registerNewRecipe(//@PathVariable("recipeName") String recipeName,
-                                  //@PathVariable("recipeIngredients") String recipeIngredients,
-                                  //@PathVariable("recipeSteps") String recipeSteps)
-    @RequestBody Recipe recipe){
+    public void registerNewRecipe(@RequestBody Recipe recipe){
         recipeService.addNewRecipe(new Recipe(recipe.getName(), recipe.getIngredients(), recipe.getSteps()));
     }
 
     @Operation(
             summary = "Delete a Recipe",
-            description = "Delete a Recipe object by specifying its name",
+            description = "Delete a Recipe object by specifying its id",
             tags = { "delete" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @DeleteMapping(path = "{recipeName}")
-    public void deleteRecipe(@PathVariable("recipeName") String recipeName){
-        recipeService.deleteRecipe(recipeService.getRecipe(recipeName).get().getId());
+             })
+    @DeleteMapping(path = "{recipeId}")
+    public void deleteRecipe(@PathVariable("recipeId") Long recipeId){
+        recipeService.deleteRecipe(recipeId);
     }
 
 
