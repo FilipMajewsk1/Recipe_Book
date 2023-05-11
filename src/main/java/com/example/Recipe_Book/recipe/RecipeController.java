@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Tag(name = "Recipe_book", description = "Recipe_book management APIs")
 @RestController
-@RequestMapping(path="api/v1/recipe")
+@RequestMapping(path="/api/v1/recipe")
 
 
 
