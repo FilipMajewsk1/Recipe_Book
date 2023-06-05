@@ -43,14 +43,14 @@ public class RecipeController {
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @GetMapping(path = "{recipeId}")
+    @GetMapping(path = "/get/{recipeId}")
     public Optional<Recipe> getRecipe(@PathVariable("recipeId") Long recipeId){return (recipeService.getRecipe(recipeId));}
 
     @Operation(
             summary = "Add a new Recipe",
             description = "Add a new Recipe object by specifying its name, ingredients and steps.",
             tags = { "post" })
-    @PostMapping(value = "")
+    @PostMapping(value = "/add")
     public void registerNewRecipe(@RequestBody Recipe recipe){
         recipeService.addNewRecipe(new Recipe(recipe.getName(), recipe.getIngredients(), recipe.getSteps()));
     }
@@ -63,7 +63,7 @@ public class RecipeController {
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Recipe.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
              })
-    @DeleteMapping(path = "{recipeId}")
+    @DeleteMapping(path = "/delete/{recipeId}")
     public void deleteRecipe(@PathVariable("recipeId") Long recipeId){
         recipeService.deleteRecipe(recipeId);
     }
