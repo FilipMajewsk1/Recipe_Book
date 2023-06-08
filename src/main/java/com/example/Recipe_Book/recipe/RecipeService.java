@@ -24,10 +24,6 @@ public class RecipeService {
     public Optional<Recipe> getRecipe(Long id){ return(recipeRepository.findById(id));}
 
     public void addNewRecipe(Recipe recipe) {
-        Optional<Recipe> recipeByName=recipeRepository.findRecipeByName(recipe.getName());
-        if (recipeByName.isPresent()) {
-            throw new IllegalStateException("recipe already saved");
-        }
         recipeRepository.save(recipe);
     }
 

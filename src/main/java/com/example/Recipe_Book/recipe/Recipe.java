@@ -24,8 +24,8 @@ public class Recipe {
     public Recipe(Long id, String name, String steps, String ingredients) {
         this.id = id;
         this.name = name;
-        this.steps = steps;
         this.ingredients = ingredients;
+        this.steps = steps;
     }
 
     public Recipe(Long id, String name, String steps) {
@@ -44,8 +44,8 @@ public class Recipe {
     }
     public Recipe(String name, String steps, String ingredients) {
         this.name = name;
-        this.steps = steps;
         this.ingredients = ingredients;
+        this.steps = steps;
     }
 
     public long getId() {
